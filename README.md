@@ -23,4 +23,4 @@ Archivar / Destruir
 
 Contenido
 
-Ejercicios1.md: Contiene casos de estudio prácticos ("La tienda de ropa de Ana" y "Rutas Eficientes S.A.") con sus respectivas soluciones, donde se relacionan situaciones cotidianas de negocio con la fase técnica correspondiente.
+[Ver los ejercicios resueltos](ejercicios.md): Contiene casos de estudio prácticos ("La tienda de ropa de Ana" y "Rutas Eficientes S.A.") con sus respectivas soluciones, donde se relacionan situaciones cotidianas de negocio con la fase técnica correspondiente.
