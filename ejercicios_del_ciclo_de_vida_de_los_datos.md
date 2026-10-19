@@ -1,0 +1,53 @@
+# Ejercicios: Ciclo de Vida de los Datos
+
+## Instrucciones
+Relaciona cada una de las siguientes situaciones del negocio con la fase del ciclo de vida de los datos que le corresponde:
+- Planificar
+- Capturar (o Recopilar)
+- Almacenar / Organizar
+- Procesar / Transformar
+- Analizar / Usar
+- Compartir / Visualizar
+- Archivar / Destruir
+
+---
+
+## Ejercicio práctico 1: "La tienda de ropa de Ana"
+Ana tiene una pequeña cadena de tiendas de ropa y quiere saber qué prendas se venden más para comprar solo lo necesario y reducir costes. Para ello, ha empezado a registrar las ventas de cada caja registradora en una hoja de cálculo.
+
+### Casos resueltos:
+* **Caso A:** Ana decide que va a medir las ventas por "talla", "color" y "precio unitario", asignando a su dependienta Carla la responsabilidad de revisar los datos cada semana. 
+  * **(Fase: Planificar)**
+* **Caso B:** Al terminar el día, el escáner de código de barras de la caja envía automáticamente los números de cada prenda vendida al sistema. 
+  * **(Fase: Capturar)**
+* **Caso C:** Ana guarda la base de datos de todo el año en un servidor seguro en la nube con copias de respaldo. 
+  * **(Fase: Almacenar)**
+* **Caso D:** El sistema detecta que hay tres ventas donde no se anotó la talla de la camisa y corrige esos campos vacíos para que no fallen los cálculos. 
+  * **(Fase: Procesar)**
+* **Caso E:** Ana calcula cuál es la prenda que deja más margen de ganancia neta por mes. 
+  * **(Fase: Analizar)**
+* **Caso F:** Ana crea un gráfico de barras colorido en la pantalla de su portátil para enseñárselo a su socio. 
+  * **(Fase: Compartir)**
+* **Caso G:** Tras 5 años de guardar registros antiguos que ya no se usan por ley fiscal, Ana borra permanentemente esos archivos del disco duro. 
+  * **(Fase: Archivar)**
+
+---
+
+## Ejercicio práctico 2: "Rutas Eficientes S.A."
+Rutas Eficientes S.A. es una empresa de distribución de mercancías congeladas. Para garantizar que los productos no pierdan la cadena de frío y lleguen a tiempo, han sensorizado y digitalizado toda su flota de camiones.
+
+### Casos resueltos:
+* **Caso 1:** El departamento de TI programa un script que detecta registros corruptos debido a interferencias en los túneles y elimina los saltos térmicos imposibles (como una lectura de 90°C dentro del congelador) antes de enviar los datos al servidor central. 
+  * **(Fase: Procesar / Transformar)**
+* **Caso 2:** Cada 30 segundos, los sensores de temperatura y los GPS instalados en los camiones transmiten de forma inalámbrica la telemetría actual a las antenas de la central. 
+  * **(Fase: Capturar)**
+* **Caso 3:** El algoritmo de la empresa cruza el histórico de tráfico, el clima y los tiempos de entrega para calcular las rutas óptimas que reducen el consumo de combustible en un 15%. 
+  * **(Fase: Analizar / Usar)**
+* **Caso 4:** Las lecturas de los sensores validadas se guardan de forma estructurada en un sistema de base de datos relacional y seguro que cuenta con redundancia en tres centros de datos. 
+  * **(Fase: Almacenar / Organizar)**
+* **Caso 5:** Al finalizar el contrato con un proveedor de sensores antiguo, la empresa tritura físicamente las tarjetas de memoria locales que contenían las claves de acceso de los dispositivos para evitar fugas de información. 
+  * **(Fase: Archivar / Destruir)**
+* **Caso 6:** El equipo de operaciones visualiza una pantalla con un mapa de calor en tiempo real que muestra el estado de las entregas a los principales supermercados asociados. 
+  * **(Fase: Compartir / Visualizar)**
+* **Caso 7:** Los datos de rutas del año 2021 se mueven de los servidores principales de acceso rápido a cintas de almacenamiento magnético de bajo coste y desconectadas de internet, ya que solo se consultarán en caso de una auditoría legal. 
+  * **(Fase: Archivar / Destruir)**
