@@ -26,3 +26,5 @@ Archivar / Destruir
 Contenido
 
 [Ver los ejercicios resueltos](ejercicios_del_ciclo_de_vida_de_los_datos.md): Contiene casos de estudio prácticos ("La tienda de ropa de Ana" y "Rutas Eficientes S.A.") con sus respectivas soluciones, donde se relacionan situaciones cotidianas de negocio con la fase técnica correspondiente.
+
+## Diseño Conceptual (II) Modelo Entidad-Relación
