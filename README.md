@@ -22,3 +22,7 @@ El objetivo de estos archivos es ayudar a comprender cómo se gestiona la inform
 
 ## Diseño Conceptual (II) Modelo Entidad-Relación
 ### Diseño Conceptual de la BBDD
+![Texto alternativo](diseño1.jpg)
+![Texto alternativo](diseño2.jpg)
+![Texto alternativo](diseño3.jpg)
+![Texto alternativo](diseño4.jpg)
