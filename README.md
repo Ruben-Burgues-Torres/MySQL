@@ -31,21 +31,23 @@ El diseño conceptual sirve para plasmar los requisitos de los usuarios en un es
 **Ejercicios Resueltos (Modelo Entidad/Relación):**
 A continuación se presentan las soluciones en Diagrama Entidad-Relación para los casos de estudio planteados:
 
+[Diagramas en HTML](src/Ejercicio2/DiagramasHTML.html)
+
 1.  **Ejercicio 1: Artículos y encargos**
     *Solución:*
-    ![Diseño Ejercicio 1](src/Ejercicio2/diseño1.jpg)
+    ![Diseño Ejercicio 1](src/Ejercicio2/diseño1.png)
 
 2.  **Ejercicio 2: Sistema de ventas**
     *Solución:*
-    ![Diseño Ejercicio 2](src/Ejercicio2/diseño2.jpg)
+    ![Diseño Ejercicio 2](src/Ejercicio2/diseño2.png)
 
 3.  **Ejercicio 3: Carreteras**
     *Solución:*
-    ![Diseño Ejercicio 3](src/Ejercicio2/diseño3.jpg)
+    ![Diseño Ejercicio 3](src/Ejercicio2/diseño3.png)
 
 4.  **Ejercicio 4: Sistema de vuelos**
     *Solución:*
-    ![Diseño Ejercicio 4](src/Ejercicio2/diseño4.jpg)
+    ![Diseño Ejercicio 4](src/Ejercicio2/diseño4.png)
 
 ---
 
@@ -61,7 +63,7 @@ El diseño lógico transforma el modelo conceptual abstracto en un conjunto de t
 Es una herramienta en formato de tabla que ayuda a determinar de manera visual y clara cómo interactúan o dependen entre sí las distintas variables (entidades) de nuestro sistema.
 
 **Ejercicios:**
-*   **Ejercicio Práctico:** Transformar los ejercicios resueltos 1 y 2 de la sesión del Modelo E/R (Artículos/Encargos y Sistema de Ventas) al Modelo Lógico Relacional aplicando las reglas de paso.
+*   **Ejercicio Práctico:** [Transformar los ejercicios resueltos 1 y 2 de la sesión del Modelo E/R (Artículos/Encargos y Sistema de Ventas) al Modelo Lógico Relacional aplicando las reglas de paso.](src/Ejercicio3/diseño_logico_ejercicio.md)
 
 </details>
 
