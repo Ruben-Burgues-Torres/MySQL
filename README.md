@@ -6,7 +6,7 @@ Bienvenido al repositorio de estudio y ejercicios prácticos sobre Bases de Dato
 
 ## 📚 Unidades Formativas (UFs)
 
-<details open>
+<details>
 <summary><b>UF01. Introducción y Diseño de Bases de Datos Relacionales (30 Horas)</b></summary>
 <br>
 
