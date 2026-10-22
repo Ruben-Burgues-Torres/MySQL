@@ -31,7 +31,6 @@
 * TELEFONOS (Numero, CIF_Cliente)
   donde
   {CIF_Cliente} referencia CLIENTES
-
 * FACTURAS (Num_Factura, Fecha, Descuento, Importe_Final, CIF_Cliente)
   donde
   {CIF_Cliente} referencia CLIENTES
@@ -44,7 +43,7 @@
 
 * CATEGORIAS (Id_Categoria, Nombre_Categoria, Titularidad, Nivel, Prefijo, Color, Señal)
 * CARRETERAS (Cod_Carretera, Nombre, Tipo_Via, Acceso_Controlado, Doble_Calzada, Observaciones, Id_Categoria)
-donde
+  donde
   {Id_Categoria} referencia CATEGORIAS
 * TRAMOS (Cod_Tramo, Km_Inicial, Km_Final, Tipo_Terreno, Entorno, Velocidad_Limite, Carriles_Por_Sentido, Observaciones, Cod_Carretera)
   donde
