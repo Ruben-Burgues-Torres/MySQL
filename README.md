@@ -19,7 +19,7 @@ El Ciclo de Vida de los Datos (DLM) abarca todas las etapas por las que pasa un 
 Una base de datos es una colección lógicamente coherente de datos con significado implícito. El modelo relacional es el estándar para bases transaccionales porque evita la duplicidad de registros y garantiza la integridad de los datos mediante el uso de tablas. Un Sistema Gestor de Bases de Datos (SGBD) es el conjunto de programas que permite definir, construir y manipular estos datos ocultando los detalles de almacenamiento al usuario. El diseño de una base de datos consta de cuatro fases: descripción de requisitos, diseño conceptual, diseño lógico y diseño físico.
 
 **Ejercicios:**
-*   [Ver los ejercicios resueltos del Ciclo de Vida de los Datos](ejercicios_del_ciclo_de_vida_de_los_datos.md): Casos prácticos de "La tienda de ropa de Ana" y "Rutas Eficientes S.A.".
+*   [Ver los ejercicios resueltos del Ciclo de Vida de los Datos](src/Ejercicio1/ejercicios_del_ciclo_de_vida_de_los_datos.md): Casos prácticos de "La tienda de ropa de Ana" y "Rutas Eficientes S.A.".
 
 ---
 
@@ -33,19 +33,19 @@ A continuación se presentan las soluciones en Diagrama Entidad-Relación para l
 
 1.  **Ejercicio 1: Artículos y encargos**
     *Solución:*
-    ![Diseño Ejercicio 1](diseño1.jpg)
+    ![Diseño Ejercicio 1](src/Ejercicio2/diseño1.jpg)
 
 2.  **Ejercicio 2: Sistema de ventas**
     *Solución:*
-    ![Diseño Ejercicio 2](diseño2.jpg)
+    ![Diseño Ejercicio 2](src/Ejercicio2/diseño2.jpg)
 
 3.  **Ejercicio 3: Carreteras**
     *Solución:*
-    ![Diseño Ejercicio 3](diseño3.jpg)
+    ![Diseño Ejercicio 3](src/Ejercicio2/diseño3.jpg)
 
 4.  **Ejercicio 4: Sistema de vuelos**
     *Solución:*
-    ![Diseño Ejercicio 4](diseño4.jpg)
+    ![Diseño Ejercicio 4](src/Ejercicio2/diseño4.jpg)
 
 ---
 
