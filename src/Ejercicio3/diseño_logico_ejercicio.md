@@ -41,7 +41,7 @@
 
 # Ejercicio 3: Red de carreteras y tramos
 
-* CATEGORIAS (Id_Categoria, Nombre_Categoria, Titularidad, Nivel, Prefijo, Color, Señal)
+* CATEGORIAS (Id_Categoria, Nombre_Categoria, Titularidad, Nivel, Color, Señal)
 * CARRETERAS (Cod_Carretera, Nombre, Tipo_Via, Acceso_Controlado, Doble_Calzada, Observaciones, Id_Categoria)
   donde
   {Id_Categoria} referencia CATEGORIAS
@@ -65,7 +65,7 @@
   {Cod_Carretera} referencia CARRETERAS
   {Cod_Tramo_Dest} referencia TRAMOS
   {Cod_Provincia_Dest} referencia PROVINCIAS
-
+  
 # Ejercicio 4: Sistema de vuelos
 
 * AEROPUERTOS (Cod_Aeropuerto, Nombre, Ciudad, Pais)
