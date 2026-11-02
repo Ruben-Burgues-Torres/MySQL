@@ -116,7 +116,7 @@ Recibe_Exc (Empleado - Excepcion_Acceso), Autoriza_Jefe (Empleado - Excepcion_Ac
 Accede_Puerta (Empleado - Acceso_Zona), Es_Accedida (Zona - Acceso_Zona) y Justifica (Excepcion_Acceso - Acceso_Zona): Relaciones 1:N. Un Empleado accede muchas veces a distintas Zonas, quedando registrado en cada Acceso_Zona si tenía permiso o no y, opcionalmente (0,1), qué Excepcion_Acceso justificó esa entrada puntual.
 
 ESQUEMA ENTIDAD-RELACIÓN
-(Insertar aquí la imagen Diagrama_ER_Proyecto_Final_Limpio.png generada en el paso anterior).
+![Diagrama_Entidad-Relación.png](Diagrama_Entidad-Relación.png)
 
 4. Modelo Relacional (Diseño Lógico)
 Transformamos el diagrama conceptual en 16 tablas físicas normalizadas en 3ª Forma Normal (3FN):
@@ -136,91 +136,91 @@ En ACCESOS_ZONAS, se registran todos los accesos a cualquier sector sin bloquear
 Las Claves Primarias se muestran en negritas y subrayadas.
 Las Claves Foráneas están marcadas como (fk).
 
-EMPRESA (id_empresa, nombre, cif¹)
+* EMPRESA (id_empresa, nombre, cif¹)
 
-DEPARTAMENTO (id_departamento, nombre, es_rotativo, id_empresa (fk))
+* DEPARTAMENTO (id_departamento, nombre, es_rotativo, id_empresa (fk))
 
-donde {id_empresa (fk) referencia a EMPRESA.id_empresa}
+  donde {id_empresa (fk) referencia a EMPRESA.id_empresa}
 
-ZONA (id_zona, nombre_zona, id_empresa (fk), id_departamento² (fk))
+* ZONA (id_zona, nombre_zona, id_empresa (fk), id_departamento² (fk))
 
-donde {id_empresa (fk) referencia a EMPRESA.id_empresa}
+  donde {id_empresa (fk) referencia a EMPRESA.id_empresa}
 
-{id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
+  {id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
 
-TURNO (id_turno, nombre_turno, hora_inicio, hora_fin)
+* TURNO (id_turno, nombre_turno, hora_inicio, hora_fin)
 
-NECESIDAD_TURNO³ (id_departamento (fk) + id_turno (fk), empleados_necesarios)
+* NECESIDAD_TURNO³ (id_departamento (fk) + id_turno (fk), empleados_necesarios)
 
-donde {id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
+  donde {id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
 
-{id_turno (fk) referencia a TURNO.id_turno}
+  {id_turno (fk) referencia a TURNO.id_turno}
 
-EMPLEADO (id_empleado, dni¹, nombre_completo, fecha_registro)
+* EMPLEADO (id_empleado, dni¹, nombre_completo, fecha_registro)
 
-CONTRATO_EMPRESA (id_contrato, fecha_alta, fecha_baja, id_empleado (fk), id_empresa (fk))
+* CONTRATO_EMPRESA (id_contrato, fecha_alta, fecha_baja, id_empleado (fk), id_empresa (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_empresa (fk) referencia a EMPRESA.id_empresa}
+  {id_empresa (fk) referencia a EMPRESA.id_empresa}
 
-PERMISO_DEPARTAMENTO³ (id_empleado (fk) + id_departamento (fk), puede_trabajar)
+* PERMISO_DEPARTAMENTO³ (id_empleado (fk) + id_departamento (fk), puede_trabajar)
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
+  {id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
 
-CONTABILIZACION_ROTACION³ (id_empleado (fk) + id_departamento (fk), le_corresponde, veces_realizadas, completado_en_ciclo)
+* CONTABILIZACION_ROTACION³ (id_empleado (fk) + id_departamento (fk), le_corresponde, veces_realizadas, completado_en_ciclo)
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
+  {id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
 
-AUSENCIA (id_ausencia, tipo, fecha_inicio, fecha_fin, id_empleado (fk))
+* AUSENCIA (id_ausencia, tipo, fecha_inicio, fecha_fin, id_empleado (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-HORARIO (id_horario, fecha, estado, id_empleado (fk), id_departamento (fk), id_turno (fk))
+* HORARIO (id_horario, fecha, estado, id_empleado (fk), id_departamento (fk), id_turno (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
+  {id_departamento (fk) referencia a DEPARTAMENTO.id_departamento}
 
-{id_turno (fk) referencia a TURNO.id_turno}
+  {id_turno (fk) referencia a TURNO.id_turno}
 
-FICHAJE (id_fichaje, hora_entrada, hora_salida, minutos_extra, id_empleado (fk), id_empresa (fk), id_horario (fk))
+* FICHAJE (id_fichaje, hora_entrada, hora_salida, minutos_extra, id_empleado (fk), id_empresa (fk), id_horario (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_empresa (fk) referencia a EMPRESA.id_empresa}
+  {id_empresa (fk) referencia a EMPRESA.id_empresa}
 
-{id_horario (fk) referencia a HORARIO.id_horario}
+  {id_horario (fk) referencia a HORARIO.id_horario}
 
-SALARIO_HISTORICO (id_salario, precio_hora, fecha_inicio, fecha_fin, id_empleado (fk))
+* SALARIO_HISTORICO (id_salario, precio_hora, fecha_inicio, fecha_fin, id_empleado (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-NOMINA (id_nomina, anio, mes, importe_bruto, id_empleado (fk), id_empresa (fk))
+* NOMINA (id_nomina, anio, mes, importe_bruto, id_empleado (fk), id_empresa (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_empresa (fk) referencia a EMPRESA.id_empresa}
+  {id_empresa (fk) referencia a EMPRESA.id_empresa}
 
-EXCEPCION_ACCESO (id_excepcion, tipo, fecha_validez, id_empleado (fk), id_zona (fk), autorizado_por⁴ (fk))
+* EXCEPCION_ACCESO (id_excepcion, tipo, fecha_validez, id_empleado (fk), id_zona (fk), autorizado_por⁴ (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_zona (fk) referencia a ZONA.id_zona}
+  {id_zona (fk) referencia a ZONA.id_zona}
 
-{autorizado_por (fk) referencia a EMPLEADO.id_empleado}
+  {autorizado_por (fk) referencia a EMPLEADO.id_empleado}
 
-ACCESO_ZONA (id_acceso, fecha_hora, permitido, origen, id_empleado (fk), id_zona (fk), id_excepcion (fk))
+* ACCESO_ZONA (id_acceso, fecha_hora, permitido, origen, id_empleado (fk), id_zona (fk), id_excepcion (fk))
 
-donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
+  donde {id_empleado (fk) referencia a EMPLEADO.id_empleado}
 
-{id_zona (fk) referencia a ZONA.id_zona}
+  {id_zona (fk) referencia a ZONA.id_zona}
 
-{id_excepcion (fk) referencia a EXCEPCION_ACCESO.id_excepcion}
+  {id_excepcion (fk) referencia a EXCEPCION_ACCESO.id_excepcion}
 
 Notas al pie del Modelo Relacional:
 ¹ Clave candidata (UNIQUE): cif en EMPRESA y dni en EMPLEADO.
