@@ -223,7 +223,9 @@ Las Claves Foráneas están marcadas como (fk).
   {id_excepcion (fk) referencia a EXCEPCION_ACCESO.id_excepcion}
 
 Notas al pie del Modelo Relacional:
-¹ Clave candidata (UNIQUE): cif en EMPRESA y dni en EMPLEADO.
-² Clave foránea anulable (NULL): Si id_departamento es NULL en ZONA, representa una zona común de la empresa.
-³ Tabla intermedia nacida de una relación N:M: NECESIDAD_TURNO, PERMISO_DEPARTAMENTO y CONTABILIZACION_ROTACION.
-⁴ Doble referencia a EMPLEADO: id_empleado identifica al trabajador que recibe el permiso puntual y autorizado_por identifica al jefe o encargado que autoriza la excepción.
+* ¹ Clave candidata (UNIQUE): cif en EMPRESA y dni en EMPLEADO.
+* ² Clave foránea anulable (NULL): Si id_departamento es NULL en ZONA, representa una zona común   de la empresa.
+* ³ Tabla intermedia nacida de una relación N:M: NECESIDAD_TURNO, PERMISO_DEPARTAMENTO y
+  CONTABILIZACION_ROTACION.
+* ⁴ Doble referencia a EMPLEADO: id_empleado identifica al trabajador que recibe el permiso
+  puntual y autorizado_por identifica al jefe o encargado que autoriza la excepción.
