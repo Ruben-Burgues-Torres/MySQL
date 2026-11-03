@@ -118,7 +118,7 @@ Accede_Puerta (Empleado - Acceso_Zona), Es_Accedida (Zona - Acceso_Zona) y Justi
 ESQUEMA ENTIDAD-RELACIÓN
 ![Diagrama_Entidad-Relación.png](Diagrama_Entidad-Relación.png)
 
-4. Modelo Relacional (Diseño Lógico)
+# 4. Modelo Relacional (Diseño Lógico)
 Transformamos el diagrama conceptual en 16 tablas físicas normalizadas en 3ª Forma Normal (3FN):
 
 Las relaciones 1:N se resuelven pasando la clave primaria del lado "1" como clave foránea (fk) hacia la tabla del lado "N".
