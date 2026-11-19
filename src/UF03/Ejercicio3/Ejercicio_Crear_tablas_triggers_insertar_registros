@@ -1,0 +1,301 @@
+DROP DATABASE IF EXISTS tienda;
+CREATE DATABASE tienda
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci;
+
+USE tienda;
+
+CREATE TABLE fabricante (
+    id_fabricante INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_fabricante VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE producto (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto VARCHAR(100) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL CHECK (precio >= 0),
+    id_fabricante INT NOT NULL,
+    CONSTRAINT fk_producto_fabricante
+        FOREIGN KEY (id_fabricante) REFERENCES fabricante(id_fabricante)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);  
+DELIMITER //
+
+CREATE TRIGGER trg_fabricante_mayusculas
+BEFORE INSERT ON fabricante
+FOR EACH ROW
+BEGIN
+    SET NEW.nombre_fabricante = UPPER(NEW.nombre_fabricante);
+END //
+
+DELIMITER ;
+INSERT INTO fabricante (id_fabricante, nombre_fabricante) VALUES
+(1, 'Asus'),
+(2, 'Lenovo'),
+(3, 'Hewlett-Packard'),
+(4, 'Samsung'),
+(5, 'Seagate'),
+(6, 'Crucial'),
+(7, 'Gigabyte'),
+(8, 'Huawei'),
+(9, 'Xiaomi');
+
+INSERT INTO producto (id_producto, nombre_producto, precio, id_fabricante) VALUES
+(1, 'Disco duro SATA3 1TB', 86.99, 5),
+(2, 'Memoria RAM DDR4 8GB', 120.00, 6),
+(3, 'Disco SSD 1 TB', 150.99, 4),
+(4, 'GeForce GTX 1050Ti', 185.00, 7),
+(5, 'GeForce GTX 1080 Xtreme', 755.00, 6),
+(6, 'Monitor 24 LED Full HD', 202.00, 1),
+(7, 'Monitor 27 LED Full HD', 245.91, 1),
+(8, 'Portátil Yoga 520', 559.00, 2),
+(9, 'Portátil Ideapd 320', 444.00, 2),
+(10, 'Impresora HP Deskjet 3720', 59.99, 3),
+(11, 'Impresora HP Laserjet Pro M26nw', 180.00, 3);
+SELECT * FROM fabricante;
+
+-- Si usas MySQL Workbench y salta el Error 1175 (Safe Update Mode), descomenta la siguiente línea:
+-- SET SQL_SAFE_UPDATES = 0;
+
+-- Subida del 15% para ASUS, LENOVO y SAMSUNG
+UPDATE producto
+SET precio = ROUND(precio * 1.15, 2)
+WHERE id_fabricante IN (
+    SELECT id_fabricante
+    FROM fabricante
+    WHERE nombre_fabricante IN ('ASUS', 'LENOVO', 'SAMSUNG')
+);
+
+-- Subida del 20% para el resto de fabricantes
+UPDATE producto
+SET precio = ROUND(precio * 1.20, 2)
+WHERE id_fabricante NOT IN (
+    SELECT id_fabricante
+    FROM fabricante
+    WHERE nombre_fabricante IN ('ASUS', 'LENOVO', 'SAMSUNG')
+);
+
+-- SET SQL_SAFE_UPDATES = 1;
+
+DELIMITER //
+
+CREATE TRIGGER trg_validar_salario_minimo
+BEFORE INSERT ON empleados
+FOR EACH ROW
+BEGIN
+    IF NEW.salario < 1134.00 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: el salario no puede ser inferior al SMI (1134.00).';
+    END IF;
+END //
+
+DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS historial_salarios (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    id_empleado INT NOT NULL,
+    salario_anterior DECIMAL(10, 2) NOT NULL,
+    salario_nuevo DECIMAL(10, 2) NOT NULL,
+    fecha_cambio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DELIMITER //
+
+CREATE TRIGGER trg_auditoria_salario
+AFTER UPDATE ON empleados
+FOR EACH ROW
+BEGIN
+    IF OLD.salario <> NEW.salario THEN
+        INSERT INTO historial_salarios (id_empleado, salario_anterior, salario_nuevo)
+        VALUES (OLD.id_empleado, OLD.salario, NEW.salario);
+    END IF;
+END //
+
+DELIMITER ;
+
+DROP DATABASE IF EXISTS transporte_mercancias;
+CREATE DATABASE transporte_mercancias
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci;
+
+USE transporte_mercancias;
+
+-- =========================================================
+-- 1. VEHÍCULOS (Especialización total y disjunta)
+-- =========================================================
+CREATE TABLE vehiculo (
+    matricula VARCHAR(10) PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    anio YEAR NOT NULL CHECK (anio >= 1980),
+    tipo_vehiculo ENUM('CAMION', 'FURGONETA') NOT NULL,
+    UNIQUE KEY uq_vehiculo_tipo (matricula, tipo_vehiculo)
+);
+
+CREATE TABLE camion (
+    matricula VARCHAR(10) PRIMARY KEY,
+    tipo_vehiculo ENUM('CAMION', 'FURGONETA') NOT NULL DEFAULT 'CAMION'
+        CHECK (tipo_vehiculo = 'CAMION'),
+    tonelaje_maximo DECIMAL(6, 2) NOT NULL CHECK (tonelaje_maximo > 0),
+    CONSTRAINT fk_camion_vehiculo
+        FOREIGN KEY (matricula, tipo_vehiculo)
+        REFERENCES vehiculo (matricula, tipo_vehiculo)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE furgoneta (
+    matricula VARCHAR(10) PRIMARY KEY,
+    tipo_vehiculo ENUM('CAMION', 'FURGONETA') NOT NULL DEFAULT 'FURGONETA'
+        CHECK (tipo_vehiculo = 'FURGONETA'),
+    capacidad_m3 DECIMAL(6, 2) NOT NULL CHECK (capacidad_m3 > 0),
+    CONSTRAINT fk_furgoneta_vehiculo
+        FOREIGN KEY (matricula, tipo_vehiculo)
+        REFERENCES vehiculo (matricula, tipo_vehiculo)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 2. EMPLEADOS (Especialización total y disjunta)
+-- =========================================================
+CREATE TABLE empleado (
+    dni CHAR(9) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    tipo_empleado ENUM('CONDUCTOR', 'ADMINISTRATIVO') NOT NULL,
+    UNIQUE KEY uq_empleado_tipo (dni, tipo_empleado)
+);
+
+CREATE TABLE conductor (
+    dni CHAR(9) PRIMARY KEY,
+    tipo_empleado ENUM('CONDUCTOR', 'ADMINISTRATIVO') NOT NULL DEFAULT 'CONDUCTOR'
+        CHECK (tipo_empleado = 'CONDUCTOR'),
+    num_carnet VARCHAR(20) NOT NULL UNIQUE,
+    categoria ENUM('B', 'C1', 'C', 'C1+E', 'C+E') NOT NULL,
+    CONSTRAINT fk_conductor_empleado
+        FOREIGN KEY (dni, tipo_empleado)
+        REFERENCES empleado (dni, tipo_empleado)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE administrativo (
+    dni CHAR(9) PRIMARY KEY,
+    tipo_empleado ENUM('CONDUCTOR', 'ADMINISTRATIVO') NOT NULL DEFAULT 'ADMINISTRATIVO'
+        CHECK (tipo_empleado = 'ADMINISTRATIVO'),
+    departamento VARCHAR(60) NOT NULL,
+    CONSTRAINT fk_administrativo_empleado
+        FOREIGN KEY (dni, tipo_empleado)
+        REFERENCES empleado (dni, tipo_empleado)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 3. VIAJES (Relaciones 1:N con conductor y vehículo)
+-- =========================================================
+CREATE TABLE viaje (
+    num_viaje INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_salida DATETIME NOT NULL,
+    origen VARCHAR(100) NOT NULL,
+    destino VARCHAR(100) NOT NULL,
+    dni_conductor CHAR(9) NOT NULL,
+    matricula_vehiculo VARCHAR(10) NOT NULL,
+    CHECK (origen <> destino),
+    CONSTRAINT fk_viaje_conductor
+        FOREIGN KEY (dni_conductor) REFERENCES conductor (dni)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT fk_viaje_vehiculo
+        FOREIGN KEY (matricula_vehiculo) REFERENCES vehiculo (matricula)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- =========================================================
+-- 4. TRAMOS (Entidad débil dependiente de viaje)
+-- =========================================================
+CREATE TABLE tramo (
+    num_viaje INT NOT NULL,
+    num_orden INT NOT NULL CHECK (num_orden >= 1),
+    distancia_km DECIMAL(7, 2) NOT NULL CHECK (distancia_km > 0),
+    fecha_inicio DATETIME NOT NULL,
+    fecha_fin DATETIME NOT NULL,
+    PRIMARY KEY (num_viaje, num_orden),
+    CHECK (fecha_fin >= fecha_inicio),
+    CONSTRAINT fk_tramo_viaje
+        FOREIGN KEY (num_viaje) REFERENCES viaje (num_viaje)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 5. GESTIÓN DE VIAJES (Relación N:M administrativo - viaje)
+-- =========================================================
+CREATE TABLE gestion_viaje (
+    dni_administrativo CHAR(9) NOT NULL,
+    num_viaje INT NOT NULL,
+    fecha_gestion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (dni_administrativo, num_viaje),
+    CONSTRAINT fk_gestion_administrativo
+        FOREIGN KEY (dni_administrativo) REFERENCES administrativo (dni)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT fk_gestion_viaje
+        FOREIGN KEY (num_viaje) REFERENCES viaje (num_viaje)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+DELIMITER //
+
+CREATE TRIGGER trg_validar_carnet_camion
+BEFORE INSERT ON viaje
+FOR EACH ROW
+BEGIN
+    DECLARE v_tipo_vehiculo ENUM('CAMION', 'FURGONETA');
+    DECLARE v_categoria ENUM('B', 'C1', 'C', 'C1+E', 'C+E');
+
+    SELECT tipo_vehiculo INTO v_tipo_vehiculo
+    FROM vehiculo
+    WHERE matricula = NEW.matricula_vehiculo;
+
+    SELECT categoria INTO v_categoria
+    FROM conductor
+    WHERE dni = NEW.dni_conductor;
+
+    IF v_tipo_vehiculo = 'CAMION' AND v_categoria = 'B' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: un conductor con carnet B no puede realizar un viaje en camión.';
+    END IF;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER trg_validar_carnet_camion
+BEFORE INSERT ON viaje
+FOR EACH ROW
+BEGIN
+    DECLARE v_tipo_vehiculo ENUM('CAMION', 'FURGONETA');
+    DECLARE v_categoria ENUM('B', 'C1', 'C', 'C1+E', 'C+E');
+
+    SELECT tipo_vehiculo INTO v_tipo_vehiculo
+    FROM vehiculo
+    WHERE matricula = NEW.matricula_vehiculo;
+
+    SELECT categoria INTO v_categoria
+    FROM conductor
+    WHERE dni = NEW.dni_conductor;
+
+    IF v_tipo_vehiculo = 'CAMION' AND v_categoria = 'B' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: un conductor con carnet B no puede realizar un viaje en camión.';
+    END IF;
+END //
+
+DELIMITER ;
